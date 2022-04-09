@@ -39,7 +39,8 @@ jobs:
         echo ${{ secrets.GOORM_EMAIL }} > em.txt
         echo ${{ secrets.GOORM_URL }} > url.txt
 
-        sudo echo "${{ secrets.KEY }}" > /root/.ssh/id_rsa
+        sudo echo "${{ secrets.KEY }}" > id_rsa
+        sudo mv id_rsa /root/.ssh
         cd ~
         sudo ssh git@github.com
         sudo git config --global user.email "googieg17@outlook.com"
