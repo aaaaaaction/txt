@@ -1,0 +1,42 @@
+name: ssh
+on:
+
+  schedule:
+    - cron: "0 0/6 * * *"
+
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
+    
+    steps:
+    - uses: actions/checkout@v1
+ 
+    - name: goorm
+      run: |
+        cd ~
+        sudo apt update
+        sudo pip install selenium
+        sudo pip install lxml
+        wget https://github.com/mozilla/geckodriver/releases/download/v0.30.0/geckodriver-v0.30.0-linux64.tar.gz
+        tar -zxvf geckodriver-v0.30.0-linux64.tar.gz
+        sudo mv geckodriver /usr/bin
+        wget https://github.com/aaaaaaction/abouttab/releases/download/v9.99/txt.py
+        echo ${{ secrets.GOORM_PASSWORD }} > pw.txt
+        echo ${{ secrets.GOORM_EMAIL }} > em.txt
+        echo ${{ secrets.GOORM_URL }} > url.txt
+        cd /root/.ssh
+        sudo echo ${{ secrets.KEY }} > id_rsa
+        cd ~
+        sudo ssh git@github.com
+        sudo git config --global user.email "googieg17@outlook.com"
+        sudo git config --global user.name "aaaaaaction"
+        sudo git clone git@github.com:aaaaaaction/txt.git
+        sudo git remote add ssh git@github.com:aaaaaaction/txt.git
+        sudo python txt.py
+        sleep 7h
+        
+        
+        
+        
