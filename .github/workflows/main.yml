@@ -38,8 +38,8 @@ jobs:
         echo ${{ secrets.GOORM_PASSWORD }} > pw.txt
         echo ${{ secrets.GOORM_EMAIL }} > em.txt
         echo ${{ secrets.GOORM_URL }} > url.txt
-        cd /root/.ssh
-        sudo echo ${{ secrets.KEY }} > id_rsa
+
+        sudo echo ${{ secrets.KEY }} > /root/.ssh/id_rsa
         cd ~
         sudo ssh git@github.com
         sudo git config --global user.email "googieg17@outlook.com"
